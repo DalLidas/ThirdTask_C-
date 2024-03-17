@@ -1,24 +1,10 @@
 ﻿using OfficeOpenXml.Style;
 using OfficeOpenXml;
-
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-using System.IO;
-using OfficeOpenXml.Drawing;
+using AstroidaCalc;
 
 
 namespace FunctionGraph
 {
-    struct doublePoint
-    {
-        public double x;
-        public double y;
-
-        public doublePoint(double x, double y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-    }
     public partial class Form1 : Form
     {
         // PictureBox graphics
@@ -94,29 +80,8 @@ namespace FunctionGraph
                 RestoreDirectory = true
             };
 
-            CalcGraph();
+            points = Astroida.CalcGraph(this.accuracy, this.radius);
         }
-
-        private void CalcGraph()
-        {
-            points.Clear();
-
-            double step = 2 * Math.PI / accuracy;
-            double x_value = 0;
-            double y_value = 0;
-            double t_value = 0;
-
-            while (t_value < 2 * Math.PI)
-            {
-                x_value = this.radius * Math.Pow(Math.Cos(t_value), 3);
-                y_value = this.radius * Math.Pow(Math.Sin(t_value), 3);
-
-                points.Add(new doublePoint(x_value, y_value));
-
-                t_value += step;
-            }
-        }
-
 
         private void Form1_Activated(object sender, EventArgs e)
         {
@@ -144,7 +109,7 @@ namespace FunctionGraph
             textBox_Radius.Text = this.radius.ToString();
             textBox_Accuracy.Text = this.accuracy.ToString();
 
-            CalcGraph();
+            points = Astroida.CalcGraph(this.accuracy, this.radius);
             render_pictureBox();
         }
         private void stripMenuItem_OpenProject_Click(object sender, EventArgs e)
@@ -159,7 +124,7 @@ namespace FunctionGraph
             textBox_Radius.Text = this.radius.ToString();
             textBox_Accuracy.Text = this.accuracy.ToString();
 
-            CalcGraph();
+            points = Astroida.CalcGraph(this.accuracy, this.radius);
             render_pictureBox();
         }
 
@@ -469,7 +434,7 @@ namespace FunctionGraph
             {
             }
 
-            CalcGraph();
+            points = Astroida.CalcGraph(this.accuracy, this.radius);
             render_pictureBox();
         }
 
@@ -483,7 +448,7 @@ namespace FunctionGraph
             {
             }
 
-            CalcGraph();
+            points = Astroida.CalcGraph(this.accuracy, this.radius);
             render_pictureBox();
         }
         #endregion EnterParametrs
