@@ -1,6 +1,7 @@
 ﻿using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using AstroidaCalc;
+using FunctionGraph.Properties;
 
 
 namespace FunctionGraph
@@ -208,6 +209,11 @@ namespace FunctionGraph
             {
                 MessageBox.Show("Something goes wrong. Load error");
             }
+        }
+
+        private void stripMenuItem_AboutCreator_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hola senior. Creator of this program (task option 13) is Danil Mukhametov from 423 group");
         }
 
         #endregion MenuItems

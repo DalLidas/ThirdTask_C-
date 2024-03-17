@@ -34,6 +34,7 @@
             stripMenuItem_CreateNewProject = new ToolStripMenuItem();
             stripMenuItem_OpenProject = new ToolStripMenuItem();
             stripMenuItem_SaveInExcel = new ToolStripMenuItem();
+            stripMenuItem_AboutCreator = new ToolStripMenuItem();
             exit_button = new Button();
             menu_panel = new Panel();
             menu_icon = new PictureBox();
@@ -80,14 +81,14 @@
             menuStrip1.Location = new Point(33, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 2, 0, 2);
-            menuStrip1.Size = new Size(57, 24);
+            menuStrip1.Size = new Size(177, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.BackgroundImageLayout = ImageLayout.None;
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { stripMenuItem_CreateNewProject, stripMenuItem_OpenProject, stripMenuItem_SaveInExcel });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { stripMenuItem_CreateNewProject, stripMenuItem_OpenProject, stripMenuItem_SaveInExcel, stripMenuItem_AboutCreator });
             toolStripMenuItem1.ForeColor = Color.White;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(50, 20);
@@ -98,7 +99,7 @@
             stripMenuItem_CreateNewProject.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_CreateNewProject.ForeColor = Color.White;
             stripMenuItem_CreateNewProject.Name = "stripMenuItem_CreateNewProject";
-            stripMenuItem_CreateNewProject.Size = new Size(143, 22);
+            stripMenuItem_CreateNewProject.Size = new Size(180, 22);
             stripMenuItem_CreateNewProject.Text = "New project";
             stripMenuItem_CreateNewProject.Click += stripMenuItem_CreateNewProject_Click;
             // 
@@ -107,7 +108,7 @@
             stripMenuItem_OpenProject.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_OpenProject.ForeColor = Color.White;
             stripMenuItem_OpenProject.Name = "stripMenuItem_OpenProject";
-            stripMenuItem_OpenProject.Size = new Size(143, 22);
+            stripMenuItem_OpenProject.Size = new Size(180, 22);
             stripMenuItem_OpenProject.Text = "Open project";
             stripMenuItem_OpenProject.Click += stripMenuItem_OpenProject_Click;
             // 
@@ -116,9 +117,18 @@
             stripMenuItem_SaveInExcel.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_SaveInExcel.ForeColor = Color.White;
             stripMenuItem_SaveInExcel.Name = "stripMenuItem_SaveInExcel";
-            stripMenuItem_SaveInExcel.Size = new Size(143, 22);
+            stripMenuItem_SaveInExcel.Size = new Size(180, 22);
             stripMenuItem_SaveInExcel.Text = "Save as ...";
             stripMenuItem_SaveInExcel.Click += stripMenuItem_SaveInExcel_Click;
+            // 
+            // stripMenuItem_AboutCreator
+            // 
+            stripMenuItem_AboutCreator.BackColor = Color.FromArgb(64, 64, 64);
+            stripMenuItem_AboutCreator.ForeColor = Color.White;
+            stripMenuItem_AboutCreator.Name = "stripMenuItem_AboutCreator";
+            stripMenuItem_AboutCreator.Size = new Size(180, 22);
+            stripMenuItem_AboutCreator.Text = "About creator";
+            stripMenuItem_AboutCreator.Click += stripMenuItem_AboutCreator_Click;
             // 
             // exit_button
             // 
@@ -594,6 +604,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
+        private ToolStripMenuItem stripMenuItem_AboutCreator;
     }
 }
 
