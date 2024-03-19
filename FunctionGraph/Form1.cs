@@ -2,6 +2,7 @@
 using OfficeOpenXml;
 using AstroidaCalc;
 using FunctionGraph.Properties;
+using System;
 
 
 namespace FunctionGraph
@@ -166,8 +167,6 @@ namespace FunctionGraph
                     worksheet.Cells["E1:H1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                     worksheet.Cells["A1:I1"].Style.Font.Bold = true;
 
-
-
                     for (int i = 0; i < points.Count; ++i) //Add some items...
                     {
                         worksheet.Cells["A" + (i + 2)].Value = points[i].x;
@@ -250,7 +249,7 @@ namespace FunctionGraph
         }
         #endregion  borderButtons
 
-        #region grip_lable
+        #region gripLable
         private void menu_panel_MouseDown(object sender, MouseEventArgs e)
         {
             drag = true;
@@ -274,16 +273,24 @@ namespace FunctionGraph
             }
 
         }
-        #endregion grip_lable
+        #endregion gripLable
 
         #region Render
         private void render_pictureBox()
         {
             pictureBox.Refresh();
 
-            draw_grid();
+            try
+            {
+                draw_grid();
 
-            draw_graph(points);
+                draw_graph(points);
+            }
+            catch
+            {
+                MessageBox.Show("Overflow exception. Change astroida parametrs");
+            }
+
 
             label_mesuar.Text = "Mesuar: " + this.mesuar;
 
@@ -399,45 +406,175 @@ namespace FunctionGraph
         #endregion Render
 
         #region EnterParametrs
-        private void textBox_leftLimit_TextChanged(object sender, EventArgs e)
+
+        private void EnterDoubleNum (ref TextBox textBox, ref double num)
         {
             try
             {
-                this.leftLimit = Convert.ToDouble(textBox_LeftLimit.Text);
+                if (textBox.Text.Trim() == "")
+                {
+                    num = 0;
+                    textBox.SelectionStart = 1;
+                }
+                else if (textBox.Text.Length == 2 && textBox.Text[0] == '0' && textBox.Text[1] != ',')
+                {
+                    textBox.Text = textBox.Text.Substring(2);
+                    textBox.SelectionStart = Convert.ToString(this.leftLimit).Length;
+                }
+                else if (textBox.Text.Length == 3 && textBox.Text[0] == '-' && textBox.Text[1] == '0' && textBox.Text[2] != ',')
+                {
+
+                    textBox.Text = '-' + textBox.Text.Substring(3);
+                    textBox.SelectionStart = Convert.ToString(num).Length;
+                }
+                else
+                {
+                    bool errFlag = false;
+                    bool commaSign_existFlag = false;
+                    bool minusSign_existFlag = false;
+
+                    for (int i = 0; i < textBox.Text.Length; ++i)
+                    {
+                        if (textBox.Text[i] == '-') // The minus sign check
+                        {
+                            if (i == 0)
+                            {
+                                minusSign_existFlag = true;
+                            }
+                            else // The minus sign can only be at the beginning
+                            {
+                                errFlag = true;
+                                break;
+                            }
+
+                        }
+
+                        else if (textBox.Text[i] == ',') // The comma sign checking
+                        {
+                            if (i == 0) // The comma sign can not be at the beginning
+                            {
+                                errFlag = true;
+                                break;
+                            }
+                            else if (commaSign_existFlag) // The comma sign should only occur once
+                            {
+                                errFlag = true;
+                                break;
+                            }
+                            else
+                            {
+                                commaSign_existFlag = true;
+                            }
+                        }
+
+                        else
+                        {
+                            foreach (var checkingChar in "0123456789")
+                            {
+                                if (textBox.Text[i] == checkingChar)
+                                {
+                                    errFlag = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (errFlag)
+                    {
+                        textBox.Text = Convert.ToString(num);
+                        textBox.SelectionStart = Convert.ToString(num).Length;
+                    }
+
+                    if (textBox.Text.Length == 1 && minusSign_existFlag)
+                    {
+
+                    }
+                    else
+                    {
+                        num = Convert.ToDouble(textBox.Text);
+                    }
+                }
             }
             catch
             {
+                textBox.Text = Convert.ToString(num);
+                textBox.SelectionStart = Convert.ToString(num).Length;
             }
+        }
+        private void EnterIntNum(ref TextBox textBox, ref int num)
+        {
+            try
+            {
+                if (textBox.Text.Trim() == "")
+                {
+                    num = 0;
+                    textBox.SelectionStart = 1;
+                }
+                else if (textBox.Text.Length == 1 && textBox.Text[0] == '0')
+                {
+                    textBox.Text = textBox.Text.Substring(1);
+                    textBox.SelectionStart = Convert.ToString(num).Length;
+                }
+
+                else
+                {
+                    bool errFlag = false;
+
+                    for (int i = 0; i < textBox.Text.Length; ++i)
+                    {
+                        foreach (var checkingChar in "0123456789")
+                        {
+                            if (textBox.Text[i] == checkingChar)
+                            {
+                                errFlag = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (errFlag)
+                    {
+                        textBox.Text = Convert.ToString(num);
+                        textBox.SelectionStart = Convert.ToString(num).Length;
+                    }
+
+
+                    num = Convert.ToInt32(textBox.Text);
+                }
+
+
+            }
+            catch
+            {
+                textBox.Text = Convert.ToString(num);
+                textBox.SelectionStart = Convert.ToString(num).Length;
+            }
+        }
+
+
+        private void textBox_leftLimit_TextChanged(object sender, EventArgs e)
+        {
+            EnterDoubleNum(ref this.textBox_LeftLimit, ref this.leftLimit);
 
             render_pictureBox();
         }
 
         private void textBox_RightLimit_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                this.rightLimit = Convert.ToDouble(textBox_RightLimit.Text);
-            }
-            catch
-            {
-            }
+            EnterDoubleNum(ref this.textBox_RightLimit, ref this.rightLimit);
 
             render_pictureBox();
         }
 
         private void textBox_accuracy_TextChanged(object sender, EventArgs e)
         {
-            try
+            EnterIntNum(ref this.textBox_Accuracy, ref this.accuracy);
+
+            if (this.accuracy > this.accuracy_limit)
             {
-                this.accuracy = Convert.ToInt32(textBox_Accuracy.Text);
-                if (this.accuracy > this.accuracy_limit)
-                {
-                    textBox_Accuracy.Text = "";
-                    textBox_Accuracy.AppendText(Convert.ToString(this.accuracy_limit));
-                }
-            }
-            catch
-            {
+                textBox_Accuracy.Text = Convert.ToString(this.accuracy_limit);
+                textBox_Accuracy.SelectionStart = Convert.ToString(this.accuracy_limit).Length;
             }
 
             points = Astroida.CalcGraph(this.accuracy, this.radius);
@@ -446,13 +583,7 @@ namespace FunctionGraph
 
         private void textBox_radius_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                this.radius = Convert.ToDouble(textBox_Radius.Text);
-            }
-            catch
-            {
-            }
+            EnterDoubleNum(ref this.textBox_Radius, ref this.radius);
 
             points = Astroida.CalcGraph(this.accuracy, this.radius);
             render_pictureBox();
@@ -514,5 +645,14 @@ namespace FunctionGraph
 
 
         #endregion Zoom
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = Convert.ToString(this.leftLimit);
+            textBox2.Text = Convert.ToString(this.rightLimit);
+            textBox3.Text = Convert.ToString(this.radius);
+            textBox4.Text = Convert.ToString(this.accuracy);
+
+        }
     }
 }

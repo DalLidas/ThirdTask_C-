@@ -65,6 +65,11 @@
             label_unit_scale = new Label();
             label_scaled_graph_mesuar = new Label();
             label_scale = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
+            textBox4 = new TextBox();
+            button1 = new Button();
             menuStrip1.SuspendLayout();
             menu_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)menu_icon).BeginInit();
@@ -81,7 +86,7 @@
             menuStrip1.Location = new Point(33, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 2, 0, 2);
-            menuStrip1.Size = new Size(177, 24);
+            menuStrip1.Size = new Size(57, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -99,7 +104,7 @@
             stripMenuItem_CreateNewProject.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_CreateNewProject.ForeColor = Color.White;
             stripMenuItem_CreateNewProject.Name = "stripMenuItem_CreateNewProject";
-            stripMenuItem_CreateNewProject.Size = new Size(180, 22);
+            stripMenuItem_CreateNewProject.Size = new Size(147, 22);
             stripMenuItem_CreateNewProject.Text = "New project";
             stripMenuItem_CreateNewProject.Click += stripMenuItem_CreateNewProject_Click;
             // 
@@ -108,7 +113,7 @@
             stripMenuItem_OpenProject.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_OpenProject.ForeColor = Color.White;
             stripMenuItem_OpenProject.Name = "stripMenuItem_OpenProject";
-            stripMenuItem_OpenProject.Size = new Size(180, 22);
+            stripMenuItem_OpenProject.Size = new Size(147, 22);
             stripMenuItem_OpenProject.Text = "Open project";
             stripMenuItem_OpenProject.Click += stripMenuItem_OpenProject_Click;
             // 
@@ -117,7 +122,7 @@
             stripMenuItem_SaveInExcel.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_SaveInExcel.ForeColor = Color.White;
             stripMenuItem_SaveInExcel.Name = "stripMenuItem_SaveInExcel";
-            stripMenuItem_SaveInExcel.Size = new Size(180, 22);
+            stripMenuItem_SaveInExcel.Size = new Size(147, 22);
             stripMenuItem_SaveInExcel.Text = "Save as ...";
             stripMenuItem_SaveInExcel.Click += stripMenuItem_SaveInExcel_Click;
             // 
@@ -126,7 +131,7 @@
             stripMenuItem_AboutCreator.BackColor = Color.FromArgb(64, 64, 64);
             stripMenuItem_AboutCreator.ForeColor = Color.White;
             stripMenuItem_AboutCreator.Name = "stripMenuItem_AboutCreator";
-            stripMenuItem_AboutCreator.Size = new Size(180, 22);
+            stripMenuItem_AboutCreator.Size = new Size(147, 22);
             stripMenuItem_AboutCreator.Text = "About creator";
             stripMenuItem_AboutCreator.Click += stripMenuItem_AboutCreator_Click;
             // 
@@ -536,12 +541,76 @@
             label_scale.TabIndex = 12;
             label_scale.Text = "Scale:";
             // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.Silver;
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Location = new Point(612, 244);
+            textBox1.Margin = new Padding(4, 3, 4, 3);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(99, 23);
+            textBox1.TabIndex = 22;
+            textBox1.Text = "-5";
+            textBox1.Visible = false;
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = Color.Silver;
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.Location = new Point(674, 273);
+            textBox2.Margin = new Padding(4, 3, 4, 3);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(99, 23);
+            textBox2.TabIndex = 23;
+            textBox2.Text = "-5";
+            textBox2.Visible = false;
+            // 
+            // textBox3
+            // 
+            textBox3.BackColor = Color.Silver;
+            textBox3.BorderStyle = BorderStyle.FixedSingle;
+            textBox3.Location = new Point(612, 302);
+            textBox3.Margin = new Padding(4, 3, 4, 3);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(99, 23);
+            textBox3.TabIndex = 24;
+            textBox3.Text = "-5";
+            textBox3.Visible = false;
+            // 
+            // textBox4
+            // 
+            textBox4.BackColor = Color.Silver;
+            textBox4.BorderStyle = BorderStyle.FixedSingle;
+            textBox4.Location = new Point(674, 331);
+            textBox4.Margin = new Padding(4, 3, 4, 3);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(99, 23);
+            textBox4.TabIndex = 25;
+            textBox4.Text = "-5";
+            textBox4.Visible = false;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(650, 372);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 26;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkGray;
             ClientSize = new Size(1381, 647);
+            Controls.Add(button1);
+            Controls.Add(textBox4);
+            Controls.Add(textBox3);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
             Controls.Add(pictureBox);
             Controls.Add(menu_panel);
             Controls.Add(menu_border);
@@ -565,6 +634,7 @@
             menu_border.ResumeLayout(false);
             menu_border.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -605,6 +675,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private ToolStripMenuItem stripMenuItem_AboutCreator;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox textBox3;
+        private TextBox textBox4;
+        private Button button1;
     }
 }
 
