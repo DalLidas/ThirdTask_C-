@@ -26,7 +26,7 @@ namespace FunctionGraph
         // Scales
         int mesuar = 0; // unit intervals
 
-        double scale = 1.0f;          // Mesuar multiplier
+        double scale = 1.0;          // Mesuar multiplier
         int scaled_graph_mesuar = 0; // Zoomed unit intervals
         int scaled_grid_mesuar = 0; // Zoomed grid intervals
         double unit_scale = 1.0f;  // Unit number multiplier
@@ -54,10 +54,16 @@ namespace FunctionGraph
         {
             InitializeComponent();
 
+            this.SetStyle(
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.UserPaint |
+                ControlStyles.DoubleBuffer, true
+                );
+
             this.graphics = pictureBox.CreateGraphics();
             this.penBold = new Pen(Color.Black, 3);    // bold pen
             this.penMedium = new Pen(Color.Black, 2); // medium pen
-            this.penLight = new Pen(Color.Gray, 1); // light pen
+            this.penLight = new Pen(Color.Gray, 1);  // light pen
 
             this.penSelector = new Pen(Color.Red, 2); // Selector pen
 
@@ -646,6 +652,7 @@ namespace FunctionGraph
 
         #endregion Zoom
 
+        // Debug
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text = Convert.ToString(this.leftLimit);

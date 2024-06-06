@@ -614,7 +614,6 @@
             Controls.Add(pictureBox);
             Controls.Add(menu_panel);
             Controls.Add(menu_border);
-            DoubleBuffered = true;
             ForeColor = Color.FromArgb(113, 96, 232);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
