@@ -35,6 +35,7 @@
             stripMenuItem_OpenProject = new ToolStripMenuItem();
             stripMenuItem_SaveInExcel = new ToolStripMenuItem();
             stripMenuItem_AboutCreator = new ToolStripMenuItem();
+            enterHelloToolStripMenuItem = new ToolStripMenuItem();
             exit_button = new Button();
             menu_panel = new Panel();
             menu_icon = new PictureBox();
@@ -46,6 +47,8 @@
             textBox_Radius = new TextBox();
             label_main = new Label();
             menu_border = new Panel();
+            button_tableClose = new Button();
+            button_tableOpen = new Button();
             label8 = new Label();
             label5 = new Label();
             label7 = new Label();
@@ -70,11 +73,15 @@
             textBox3 = new TextBox();
             textBox4 = new TextBox();
             button1 = new Button();
+            dataGridView1 = new DataGridView();
+            X = new DataGridViewTextBoxColumn();
+            Y = new DataGridViewTextBoxColumn();
             menuStrip1.SuspendLayout();
             menu_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)menu_icon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             menu_border.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -86,14 +93,14 @@
             menuStrip1.Location = new Point(33, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 2, 0, 2);
-            menuStrip1.Size = new Size(57, 24);
+            menuStrip1.Size = new Size(177, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.BackgroundImageLayout = ImageLayout.None;
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { stripMenuItem_CreateNewProject, stripMenuItem_OpenProject, stripMenuItem_SaveInExcel, stripMenuItem_AboutCreator });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { stripMenuItem_CreateNewProject, stripMenuItem_OpenProject, stripMenuItem_SaveInExcel, enterHelloToolStripMenuItem, stripMenuItem_AboutCreator });
             toolStripMenuItem1.ForeColor = Color.White;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(50, 20);
@@ -104,7 +111,7 @@
             stripMenuItem_CreateNewProject.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_CreateNewProject.ForeColor = Color.White;
             stripMenuItem_CreateNewProject.Name = "stripMenuItem_CreateNewProject";
-            stripMenuItem_CreateNewProject.Size = new Size(147, 22);
+            stripMenuItem_CreateNewProject.Size = new Size(180, 22);
             stripMenuItem_CreateNewProject.Text = "New project";
             stripMenuItem_CreateNewProject.Click += stripMenuItem_CreateNewProject_Click;
             // 
@@ -113,7 +120,7 @@
             stripMenuItem_OpenProject.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_OpenProject.ForeColor = Color.White;
             stripMenuItem_OpenProject.Name = "stripMenuItem_OpenProject";
-            stripMenuItem_OpenProject.Size = new Size(147, 22);
+            stripMenuItem_OpenProject.Size = new Size(180, 22);
             stripMenuItem_OpenProject.Text = "Open project";
             stripMenuItem_OpenProject.Click += stripMenuItem_OpenProject_Click;
             // 
@@ -122,7 +129,7 @@
             stripMenuItem_SaveInExcel.BackColor = Color.FromArgb(61, 61, 61);
             stripMenuItem_SaveInExcel.ForeColor = Color.White;
             stripMenuItem_SaveInExcel.Name = "stripMenuItem_SaveInExcel";
-            stripMenuItem_SaveInExcel.Size = new Size(147, 22);
+            stripMenuItem_SaveInExcel.Size = new Size(180, 22);
             stripMenuItem_SaveInExcel.Text = "Save as ...";
             stripMenuItem_SaveInExcel.Click += stripMenuItem_SaveInExcel_Click;
             // 
@@ -131,9 +138,20 @@
             stripMenuItem_AboutCreator.BackColor = Color.FromArgb(64, 64, 64);
             stripMenuItem_AboutCreator.ForeColor = Color.White;
             stripMenuItem_AboutCreator.Name = "stripMenuItem_AboutCreator";
-            stripMenuItem_AboutCreator.Size = new Size(147, 22);
+            stripMenuItem_AboutCreator.Size = new Size(180, 22);
             stripMenuItem_AboutCreator.Text = "About creator";
             stripMenuItem_AboutCreator.Click += stripMenuItem_AboutCreator_Click;
+            // 
+            // enterHelloToolStripMenuItem
+            // 
+            enterHelloToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+            enterHelloToolStripMenuItem.Checked = true;
+            enterHelloToolStripMenuItem.CheckState = CheckState.Checked;
+            enterHelloToolStripMenuItem.ForeColor = Color.White;
+            enterHelloToolStripMenuItem.Name = "enterHelloToolStripMenuItem";
+            enterHelloToolStripMenuItem.Size = new Size(180, 22);
+            enterHelloToolStripMenuItem.Text = "HelloMessage";
+            enterHelloToolStripMenuItem.Click += enterHelloToolStripMenuItem_Click;
             // 
             // exit_button
             // 
@@ -278,6 +296,8 @@
             // menu_border
             // 
             menu_border.BackColor = Color.FromArgb(64, 64, 64);
+            menu_border.Controls.Add(button_tableClose);
+            menu_border.Controls.Add(button_tableOpen);
             menu_border.Controls.Add(label8);
             menu_border.Controls.Add(label5);
             menu_border.Controls.Add(label7);
@@ -307,6 +327,29 @@
             menu_border.Name = "menu_border";
             menu_border.Size = new Size(551, 613);
             menu_border.TabIndex = 11;
+            // 
+            // button_tableClose
+            // 
+            button_tableClose.ForeColor = Color.Black;
+            button_tableClose.Location = new Point(29, 353);
+            button_tableClose.Name = "button_tableClose";
+            button_tableClose.Size = new Size(161, 23);
+            button_tableClose.TabIndex = 33;
+            button_tableClose.Text = "Закрыть таблицу";
+            button_tableClose.UseVisualStyleBackColor = true;
+            button_tableClose.Visible = false;
+            button_tableClose.Click += button_tableClose_Click;
+            // 
+            // button_tableOpen
+            // 
+            button_tableOpen.ForeColor = Color.Black;
+            button_tableOpen.Location = new Point(29, 353);
+            button_tableOpen.Name = "button_tableOpen";
+            button_tableOpen.Size = new Size(161, 23);
+            button_tableOpen.TabIndex = 32;
+            button_tableOpen.Text = "Открыть таблицу";
+            button_tableOpen.UseVisualStyleBackColor = true;
+            button_tableOpen.Click += button_tableOpen_Click;
             // 
             // label8
             // 
@@ -600,12 +643,38 @@
             button1.Visible = false;
             button1.Click += button1_Click;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { X, Y });
+            dataGridView1.Location = new Point(14, 32);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.Size = new Size(581, 575);
+            dataGridView1.TabIndex = 27;
+            dataGridView1.Visible = false;
+            // 
+            // X
+            // 
+            X.HeaderText = "X";
+            X.Name = "X";
+            X.ReadOnly = true;
+            // 
+            // Y
+            // 
+            Y.HeaderText = "Y";
+            Y.Name = "Y";
+            Y.ReadOnly = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkGray;
             ClientSize = new Size(1381, 647);
+            Controls.Add(dataGridView1);
             Controls.Add(button1);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
@@ -632,6 +701,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             menu_border.ResumeLayout(false);
             menu_border.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -679,6 +749,12 @@
         private TextBox textBox3;
         private TextBox textBox4;
         private Button button1;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn X;
+        private DataGridViewTextBoxColumn Y;
+        private Button button_tableClose;
+        private Button button_tableOpen;
+        private ToolStripMenuItem enterHelloToolStripMenuItem;
     }
 }
 

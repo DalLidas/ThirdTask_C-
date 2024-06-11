@@ -3,6 +3,8 @@ using OfficeOpenXml;
 using AstroidaCalc;
 using FunctionGraph.Properties;
 using System;
+using System.Windows.Forms;
+using System.IO;
 
 
 namespace FunctionGraph
@@ -26,7 +28,7 @@ namespace FunctionGraph
         // Scales
         int mesuar = 0; // unit intervals
 
-        double scale = 1.0;          // Mesuar multiplier
+        double scale = 1.0;           // Mesuar multiplier
         int scaled_graph_mesuar = 0; // Zoomed unit intervals
         int scaled_grid_mesuar = 0; // Zoomed grid intervals
         double unit_scale = 1.0f;  // Unit number multiplier
@@ -48,6 +50,9 @@ namespace FunctionGraph
         // Dialog windows
         SaveFileDialog saveFileDialog;
         OpenFileDialog openFileDialog;
+
+        // Show entering msg
+        bool showEnteringMSGFlag = true;
 
 
         public Form1()
@@ -89,6 +94,40 @@ namespace FunctionGraph
             };
 
             points = Astroida.CalcGraph(this.accuracy, this.radius);
+
+
+            if (!File.Exists("Settings"))
+            {
+                // Create settings file
+                using (StreamWriter sw = File.CreateText("Settings"))
+                {
+                    sw.WriteLine("HelloMSG: True");
+                    showEnteringMSGFlag = true;
+                }
+            }
+            else
+            {
+                // Read settings file
+                string[] sw = File.ReadAllLines("Settings");
+
+                if (sw[0] == "HelloMSG: True")
+                {
+                    showEnteringMSGFlag = true;
+                }
+                else if (sw[0] == "HelloMSG: False")
+                {
+                    showEnteringMSGFlag = false;
+                }
+                else
+                {
+                    showEnteringMSGFlag = false;
+                }
+            }
+
+            if (showEnteringMSGFlag) enterHelloToolStripMenuItem.Checked = true;
+            else enterHelloToolStripMenuItem.Checked = false;
+
+            if (showEnteringMSGFlag) MessageBox.Show("Hola senior. Creator of this program (task option 13) is Danil Mukhametov from 423 group");
         }
 
         private void Form1_Activated(object sender, EventArgs e)
@@ -102,6 +141,22 @@ namespace FunctionGraph
         }
 
         #region MenuItems
+
+        private void enterHelloToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showEnteringMSGFlag = !showEnteringMSGFlag;
+
+            if (showEnteringMSGFlag) enterHelloToolStripMenuItem.Checked = true;
+            else enterHelloToolStripMenuItem.Checked = false;
+
+            // Create settings file
+            using (StreamWriter sw = File.CreateText("Settings"))
+            {
+                if (showEnteringMSGFlag) sw.WriteLine("HelloMSG: True");
+                else sw.WriteLine("HelloMSG: False");
+            }
+        }
+
         private void stripMenuItem_CreateNewProject_Click(object sender, EventArgs e)
         {
             this.accuracy = 100;
@@ -413,7 +468,7 @@ namespace FunctionGraph
 
         #region EnterParametrs
 
-        private void EnterDoubleNum (ref TextBox textBox, ref double num)
+        private void EnterDoubleNum(ref TextBox textBox, ref double num)
         {
             try
             {
@@ -562,14 +617,12 @@ namespace FunctionGraph
         private void textBox_leftLimit_TextChanged(object sender, EventArgs e)
         {
             EnterDoubleNum(ref this.textBox_LeftLimit, ref this.leftLimit);
-
             render_pictureBox();
         }
 
         private void textBox_RightLimit_TextChanged(object sender, EventArgs e)
         {
             EnterDoubleNum(ref this.textBox_RightLimit, ref this.rightLimit);
-
             render_pictureBox();
         }
 
@@ -584,6 +637,7 @@ namespace FunctionGraph
             }
 
             points = Astroida.CalcGraph(this.accuracy, this.radius);
+            RefresDataGrid();
             render_pictureBox();
         }
 
@@ -592,6 +646,7 @@ namespace FunctionGraph
             EnterDoubleNum(ref this.textBox_Radius, ref this.radius);
 
             points = Astroida.CalcGraph(this.accuracy, this.radius);
+            RefresDataGrid();
             render_pictureBox();
         }
         #endregion EnterParametrs
@@ -652,6 +707,71 @@ namespace FunctionGraph
 
         #endregion Zoom
 
+        private void button_tableOpen_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (points is null || points.Count == 0) throw new Exception("Пустой граф");
+
+                RefresDataGrid();
+
+                textBox_LeftLimit.Enabled = true;
+                textBox_RightLimit.Enabled = true;
+                textBox_Radius.Enabled = true;
+                textBox_Accuracy.Enabled = true;
+
+                dataGridView1.Visible = true;
+                button_tableOpen.Enabled = false;
+                button_tableOpen.Visible = false;
+                button_tableClose.Enabled = true;
+                button_tableClose.Visible = true;
+            }
+            catch (Exception exc)
+            {
+                if (exc.Message == "")
+                {
+                    MessageBox.Show("Что-то пошло не так");
+                }
+                else
+                {
+                    MessageBox.Show(exc.Message);
+                }
+            }
+        }
+
+        private void button_tableClose_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                textBox_LeftLimit.Enabled = true;
+                textBox_RightLimit.Enabled = true;
+                textBox_Radius.Enabled = true;
+                textBox_Accuracy.Enabled = true;
+
+                dataGridView1.Visible = false;
+                button_tableOpen.Enabled = true;
+                button_tableOpen.Visible = true;
+                button_tableClose.Enabled = false;
+                button_tableClose.Visible = false;
+
+                render_pictureBox();
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так");
+            }
+        }
+
+        private void RefresDataGrid()
+        {
+            dataGridView1.Rows.Clear();
+            for (int i = 0; i < points.Count; i++)
+            {
+                dataGridView1.Rows.Add(new string[2] { points[i].x.ToString() ?? "", points[i].y.ToString() ?? "" });
+            }
+        }
+
         // Debug
         private void button1_Click(object sender, EventArgs e)
         {
@@ -663,3 +783,4 @@ namespace FunctionGraph
         }
     }
 }
+
