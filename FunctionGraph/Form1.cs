@@ -707,6 +707,7 @@ namespace FunctionGraph
 
         #endregion Zoom
 
+        #region TableOfGraphValue
         private void button_tableOpen_Click(object sender, EventArgs e)
         {
 
@@ -772,6 +773,8 @@ namespace FunctionGraph
             }
         }
 
+        #endregion TableOfGraphValue
+
         // Debug
         private void button1_Click(object sender, EventArgs e)
         {
@@ -779,7 +782,6 @@ namespace FunctionGraph
             textBox2.Text = Convert.ToString(this.rightLimit);
             textBox3.Text = Convert.ToString(this.radius);
             textBox4.Text = Convert.ToString(this.accuracy);
-
         }
     }
 }
