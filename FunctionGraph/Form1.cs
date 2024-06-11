@@ -712,7 +712,7 @@ namespace FunctionGraph
 
             try
             {
-                if (points is null || points.Count == 0) throw new Exception("Пустой граф");
+                if (points is null || points.Count == 0) throw new Exception("Empty graph");
 
                 RefresDataGrid();
 
@@ -731,7 +731,7 @@ namespace FunctionGraph
             {
                 if (exc.Message == "")
                 {
-                    MessageBox.Show("Что-то пошло не так");
+                    MessageBox.Show("Somefing goes wrong");
                 }
                 else
                 {
@@ -759,7 +759,7 @@ namespace FunctionGraph
             }
             catch
             {
-                MessageBox.Show("Что-то пошло не так");
+                MessageBox.Show("Somefing goes wrong");
             }
         }
 
